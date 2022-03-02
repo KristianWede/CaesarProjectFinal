@@ -58,12 +58,12 @@ public class Main {
             int shifted = shift + talBogstav;
 
             //Hvis encryption går over 28 i alfabetet, sætter den tilbage til A,B,C.
-            if (shifted > 29){
+            if (shifted > alfabet.length - 1){
                 shifted = shifted % alfabet.length +1;
 
             //Ellers hvis den er under nul, plusser den bare med 29.
             } else if (shifted <= 0) {
-                shifted +=29;
+                shifted += alfabet.length -1;
             }
             return shifted;
         }
@@ -94,7 +94,6 @@ public class Main {
         String besked = sc.nextLine().toUpperCase();
         System.out.println("Mange tak! Venligst indtast en shift.");
         int shift = sc.nextInt();
-        System.out.println();
 
         //Tager beslutning om shift er til decrypt eller encrypt.
         shift = obj.encryptOrDecrypt(shift);
@@ -120,9 +119,5 @@ public class Main {
             //Tilføjer step til sidst så det næste bogstav bliver valgt til næste gang i messageToChar.
             step++;
         }
-
-        //Spørger om en kode skal udføres gennem Vignére
-
-
     }
 }
