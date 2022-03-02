@@ -8,8 +8,8 @@ public class Main {
     char[] alfabet = {' ', 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N',
             'O','P','Q','R','S','T','U','V','W','X','Y','Z','Æ','Å'};
 
-    public int encryptOrDecrypt(int shift){ //Sprøger om hvis den skal enten encrypt eller decrypt.
-
+    //Sprøger om hvis den skal enten encrypt eller decrypt.
+    public int encryptOrDecrypt(int shift){
         do{
             System.out.println("Skal du Encrypt eller Decrypt?");
             String dilemma = sc.next();
@@ -24,24 +24,19 @@ public class Main {
         } while (true);
     }
 
+
     public int redefineShift(int shift){ //Hvis den skal dekryptere, bliver shift sat til negativ.
         //Sætter shift til negativ.
         int newShift = shift * -1;
         return newShift;
     }
-/*
-    public String solveChar(String besked){ //Brug denne her til alle objekter, som løser koden.
-        for (int i = 0; besked.length() > i ; i++)
-            messageToChar(besked, step);
-    return character;
-    }
- */
 
     public char messageToChar(String message, int step){ //Bruger en step variabel, så den ved hvilken del i beskeden skal returneres.
             char bogstav = message.charAt(step);
             return bogstav;
     }
 
+    //Laver et char om til et tal.
     public int bogstaverTilTal(char inputBogstav){
         //Går igennem alle bogstaver indtil den finder hvilket tal passer til et char i alfabet Arrayet.
         for (int i = 0;alfabet.length >= i; i++ ){
@@ -54,6 +49,7 @@ public class Main {
         return 404;
     }
 
+    //Tilføjer shift til chars tal.
     public int applyShift(int talBogstav, int shift){
 
         int shifted = shift + talBogstav;
@@ -77,6 +73,11 @@ public class Main {
         return result;
     }
 
+    public void printOutMessage(char shiftedMessage){
+        System.out.print(shiftedMessage);
+        System.out.print(" ");
+    }
+
 
     public static void main(String[] args) {
 
@@ -96,23 +97,25 @@ public class Main {
         //Tager beslutning om shift er til decrypt eller encrypt.
         shift = obj.encryptOrDecrypt(shift);
 
-
-        System.out.println(shift);//Debugging
         //Skal igennem hele beskeden, og printer den ud én gang, hver gang den looper.
         for (int i = 0;besked.length() > i ; i++) {
 
+            //Laver hele beskeden om til en char, én af gangen.
             char bogstav = obj.messageToChar(besked, step);
 
+            //Laver char om til et tal.
             int bogstavTal = obj.bogstaverTilTal(bogstav);
 
+            //Tilføjer shift til det oversatte tal fra char.
             int shiftedBogstavTal = obj.applyShift(bogstavTal, shift);
 
-            //char shiftedBogstav =
+            //Oversætter det shifted tal til et bogstav igen.
+            char shiftedBogstav = obj.taltilBogstaver(shiftedBogstavTal);
 
-            System.out.print(shiftedBogstavTal);
-            System.out.print(" ");
+            //Printer ud det Encrypteret/Decrypterert message
+            obj.printOutMessage(shiftedBogstav);
 
-            //Tilføjer step til sidst så det næste bogstav bliver valgt til næste gang.
+            //Tilføjer step til sidst så det næste bogstav bliver valgt til næste gang i messageToChar.
             step++;
         }
     }
