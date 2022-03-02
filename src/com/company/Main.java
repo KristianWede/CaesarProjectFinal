@@ -1,11 +1,9 @@
 package com.company;
 
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
 
-    boolean validAnswer = false;
     Scanner sc = new Scanner(System.in);
     char[] alfabet = {' ', 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N',
             'O','P','Q','R','S','T','U','V','W','X','Y','Z','Æ','Å'};
@@ -23,9 +21,7 @@ public class Main {
                 default:
                     System.out.println("Det passer ikke noget! Prøv igen!");
             }
-        } while (!validAnswer);
-
-        return 404;
+        } while (true);
     }
 
     public int redefineShift(int shift){ //Hvis den skal dekryptere, bliver shift sat til negativ.
@@ -58,6 +54,29 @@ public class Main {
         return 404;
     }
 
+    public int applyShift(int talBogstav, int shift){
+
+        int shifted = shift + talBogstav;
+
+            //Hvis encryption går over 28 i alfabetet, sætter den tilbage til A,B,C.
+            if (shifted > 28){
+                shifted = shifted % alfabet.length + 1;
+            }
+
+            //Hvis decryption er lige med el. under 0, plusser den med 28.
+            if (shifted <= 0){
+                shifted +=28;
+            }
+
+        return shifted;
+    }
+
+    public char taltilBogstaver(int inputTal) {
+        //Spørger efter et char med det int fra input.
+        char result = alfabet[inputTal];
+        return result;
+    }
+
 
     public static void main(String[] args) {
 
@@ -78,7 +97,7 @@ public class Main {
         shift = obj.encryptOrDecrypt(shift);
 
 
-        System.out.println(shift);
+        System.out.println(shift);//Debugging
         //Skal igennem hele beskeden, og printer den ud én gang, hver gang den looper.
         for (int i = 0;besked.length() > i ; i++) {
 
@@ -86,24 +105,15 @@ public class Main {
 
             int bogstavTal = obj.bogstaverTilTal(bogstav);
 
-            System.out.println(bogstavTal);
+            int shiftedBogstavTal = obj.applyShift(bogstavTal, shift);
+
+            //char shiftedBogstav =
+
+            System.out.print(shiftedBogstavTal);
+            System.out.print(" ");
 
             //Tilføjer step til sidst så det næste bogstav bliver valgt til næste gang.
             step++;
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }
