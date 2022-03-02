@@ -51,19 +51,23 @@ public class Main {
     }
 
     //Tilføjer shift til chars tal.
-    public int applyShift(int talBogstav, int shift){ //TODO: Denne metode virker ikke, den skal virke med mellemrum og ÆØÅ.
+    public int applyShift(int talBogstav, int shift){
 
-        int shifted = shift + talBogstav;
+        //Bruger denne til når der kommer mellemrum, så de bliver ignoreret.
+        if ( talBogstav != 0) {
+            int shifted = shift + talBogstav;
 
             //Hvis encryption går over 28 i alfabetet, sætter den tilbage til A,B,C.
-            if (shifted > 28){
-                shifted = shifted % alfabet.length + 1;
+            if (shifted > 29){
+                shifted = shifted % alfabet.length +1;
 
-            //Hvis decryption er lige med el. under 0, plusser den med 28.
-            } else if (shifted < 0){
-                shifted +=28;
+            //Ellers hvis den er under nul, plusser den bare med 29.
+            } else if (shifted <= 0) {
+                shifted +=29;
             }
-        return shifted;
+            return shifted;
+        }
+        return talBogstav;
     }
 
     public char taltilBogstaver(int inputTal) {
@@ -116,5 +120,9 @@ public class Main {
             //Tilføjer step til sidst så det næste bogstav bliver valgt til næste gang i messageToChar.
             step++;
         }
+
+        //Spørger om en kode skal udføres gennem Vignére
+
+
     }
 }
