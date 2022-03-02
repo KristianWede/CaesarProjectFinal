@@ -6,7 +6,7 @@ public class Main {
 
     Scanner sc = new Scanner(System.in);
     char[] alfabet = {' ', 'A', 'B', 'C', 'D','E','F','G','H','I','J','K','L','M','N',
-            'O','P','Q','R','S','T','U','V','W','X','Y','Z','Æ','Å'};
+            'O','P','Q','R','S','T','U','V','W','X','Y','Z','Æ','Ø','Å'};
 
     //Sprøger om hvis den skal enten encrypt eller decrypt.
     public int encryptOrDecrypt(int shift){
@@ -24,14 +24,15 @@ public class Main {
         } while (true);
     }
 
-
-    public int redefineShift(int shift){ //Hvis den skal dekryptere, bliver shift sat til negativ.
+    //Hvis den skal dekryptere, bliver shift sat til negativ.
+    public int redefineShift(int shift){
         //Sætter shift til negativ.
         int newShift = shift * -1;
         return newShift;
     }
 
-    public char messageToChar(String message, int step){ //Bruger en step variabel, så den ved hvilken del i beskeden skal returneres.
+    //Bruger en step variabel, så den ved hvilken del i beskeden skal returneres.
+    public char messageToChar(String message, int step){
             char bogstav = message.charAt(step);
             return bogstav;
     }
@@ -41,7 +42,7 @@ public class Main {
         //Går igennem alle bogstaver indtil den finder hvilket tal passer til et char i alfabet Arrayet.
         for (int i = 0;alfabet.length >= i; i++ ){
             //Tjekker om alfabet Array er det samme som inputtet.
-            if ( alfabet[i] == inputBogstav){
+            if (alfabet[i] == inputBogstav){
                 //Returnerer tallet.
                 return i;
             }
@@ -50,20 +51,18 @@ public class Main {
     }
 
     //Tilføjer shift til chars tal.
-    public int applyShift(int talBogstav, int shift){
+    public int applyShift(int talBogstav, int shift){ //TODO: Denne metode virker ikke, den skal virke med mellemrum og ÆØÅ.
 
         int shifted = shift + talBogstav;
 
             //Hvis encryption går over 28 i alfabetet, sætter den tilbage til A,B,C.
             if (shifted > 28){
                 shifted = shifted % alfabet.length + 1;
-            }
 
             //Hvis decryption er lige med el. under 0, plusser den med 28.
-            if (shifted <= 0){
+            } else if (shifted < 0){
                 shifted +=28;
             }
-
         return shifted;
     }
 
@@ -75,7 +74,6 @@ public class Main {
 
     public void printOutMessage(char shiftedMessage){
         System.out.print(shiftedMessage);
-        System.out.print(" ");
     }
 
 
